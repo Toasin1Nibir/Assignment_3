@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+        </div>
+        <div id='form' class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="First_ticket_count" class="inp-style inp-width" type="text" name="" value="0">
+                   
+                </div>
+                <div class="plus-minus-btn d-inline-flex">
+                    
+                    <button onclick="handleTicketChange('First',true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                    <button onclick="handleTicketChange('First',false)" class="btn btn-default"><i class="fas fa-minus"></i></button>    
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div class="">
+                    <label for="">Economy ($100)</label>
+                    <input  id="Economy_ticket_count" class="inp-style inp-width" type="text" name="" value="0">
+                </div>
+                <div class="plus-minus-btn d-flex">
+                    <button onclick="handleTicketChange('Economy',true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                    <button onclick="handleTicketChange('Economy',false)" class="btn btn-default"><i class="fas fa-minus"></i></button>    
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="Subtotal_price">$00</p>
+                    </div>
+                </div>
+                <div class="amount">
+                    <div class="left">
+                        <p >Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="Tax_price">$00</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="Total_price">$00</p>
+                    </div>
+                </div>
+            </div>
+            <button id ="book" onclick="Showmsg()" class="btn-style ">Book Now</button>
+        </div>
+        <div id="booking-details">
+            <header>
+                <h1>Your Flight Detail</h1>
+            </header>
+            <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="strong">First Class</td>
+                    <td><span id="first-class"></span> Tickets</td>
+                  </tr>
+                  <tr>
+                    <td class="strong">Economy</td>
+                    <td><span id="economy-class"></span> Tickets</td>
+                  </tr>
+                  <tr>
+                    <td class="strong">Subtotal</td>
+                    <td> $ <span id="user-subtotal"></span></td>
+                  </tr>
+                  <tr>
+                    <td class="strong">Tax</td>
+                    <td> $ <span id="user-tax"></span></td>
+                  </tr>
+                  <tr>
+                    <td class="strong">Total</td>
+                    <td > $ <span id="user-total"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+               <button class="btn-style book-now"><a href="" style="color: #fff;">Back To Home</a></button>
+        </div>
+    </main>
+
+    <!--Thank You-->
+    <script>
+       function Showmsg(){
+        swal("Good job!", "Your booking is successful!", "success");
+       }
+        function handleTicketChange(ticket_type,isCrease){
+        const ticket_count = getInputValue(ticket_type)
+          let ticket_Newcount = ticket_count
+          if(isCrease == true){
+            ticket_Newcount = ticket_count + 1
+          }
+          if((isCrease == false) && (ticket_count>0)){
+            ticket_Newcount = ticket_count - 1
+          }
+          document.getElementById(ticket_type + '_ticket_count').value = ticket_Newcount
+          CalculateTotal()
+        }
+        function CalculateTotal(){ 
+            const First_ticket_count = getInputValue('First')
+            const Economy_ticket_count = getInputValue('Economy')
+            const Subtotal = First_ticket_count * 150 + Economy_ticket_count * 100
+            document.getElementById('Subtotal_price').innerText = '$' + Subtotal
+            const Tax = Subtotal * 0.1
+            document.getElementById('Tax_price').innerText = '$' + Tax
+            const Totalprice = Tax + Subtotal
+            document.getElementById('Total_price').innerText = '$' + Totalprice
+        }
+        function getInputValue(ticket){
+            const Ticket_Input = document.getElementById(ticket + '_ticket_count')
+            const Ticket_count = parseInt(Ticket_Input.value) 
+            return Ticket_count
+        }
+        document.getElementById("book").addEventListener('click', function (){
+            const firstClassTicket = document.getElementById('First_ticket_count').value
+            const ecoClassTicket = document.getElementById('Economy_ticket_count').value
+            const Subtotal = firstClassTicket * 150 + ecoClassTicket * 100
+            const Tax = Subtotal * 0.1
+            const Totalprice = Tax + Subtotal
+            document.getElementById('form').style.display= 'none'
+            document.getElementById('booking-details').style.display='block'
+            document.getElementById('first-class').textContent = firstClassTicket;
+            document.getElementById('economy-class').textContent = ecoClassTicket;
+            document.getElementById('user-subtotal').textContent = Subtotal
+            document.getElementById('user-tax').textContent = Tax
+            document.getElementById('user-total').textContent = Totalprice
+        })
+    
+    </script>
+</body>
+
+</html>
